@@ -3,28 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Tactical Hub - Location & Export Pro</title>
+    <title>AI Tactical Hub - Final All-In-One</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --emerald: #10b981; --blue: #3b82f6; --red: #ef4444; }
-        body { background-color: #020617; color: white; font-family: 'Cairo', sans-serif; }
+        body { background-color: #020617; color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; }
+        
+        /* Force text colors for GitHub compatibility */
         .glass-panel { background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; }
         .input-cell { background: #0f172a !important; border: 1px solid #334155 !important; color: #ffffff !important; padding: 10px; border-radius: 6px; width: 100%; text-align: center; font-weight: bold; }
         .select-cell { background: #1e293b !important; border: 1px solid var(--emerald) !important; color: #ffffff !important; padding: 10px; border-radius: 6px; width: 100%; font-weight: bold; cursor: pointer; }
         .table-text { color: #ffffff !important; font-weight: 600; }
         .table-header { font-size: 0.75rem; font-weight: 900; color: #94a3b8 !important; text-transform: uppercase; padding: 12px; background: #1e293b; }
-        .alpha-banner { background: linear-gradient(90deg, #064e3b, #020617); border-bottom: 2px solid var(--emerald); padding: 10px; text-align: center; font-weight: 900; }
-        .lang-toggle { position: fixed; top: 20px; right: 20px; z-index: 1000; cursor: pointer; background: var(--blue); padding: 10px 20px; border-radius: 50px; font-weight: 900; }
-        @media print { .no-print { display: none; } }
+        
+        /* Banner & Navigation */
+        .alpha-banner { background: linear-gradient(90deg, #064e3b, #020617); border-bottom: 2px solid var(--emerald); padding: 12px; text-align: center; font-weight: 900; position: sticky; top: 0; z-index: 100; }
+        .lang-toggle { position: fixed; top: 70px; right: 20px; z-index: 200; cursor: pointer; background: var(--blue); padding: 10px 20px; border-radius: 50px; font-weight: 900; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        /* Video HUD */
+        .video-box { border: 2px dashed #334155; border-radius: 16px; background: #000; position: relative; overflow: hidden; }
+        .video-box:hover { border-color: var(--emerald); }
+        
+        @media print { .no-print { display: none !important; } }
     </style>
 </head>
 <body dir="ltr">
 
+    <!-- LANGUAGE TOGGLE -->
     <div class="lang-toggle flex items-center gap-2 no-print" onclick="toggleLanguage()">
         <span id="langName">العربية</span> 🌐
     </div>
 
+    <!-- TOP STATEMENT -->
     <div class="alpha-banner no-print">
         <span id="txtBanner" class="text-white">⚠️ Team Alpha is the team that appears on the LEFT of each video clip.</span>
     </div>
@@ -35,12 +46,12 @@
             <p class="text-slate-400 text-sm font-bold" id="txtSubTitle">Location-Aware Analysis & Historical Video Mapping</p>
         </header>
 
-        <!-- 1. REQUIREMENT TABLES -->
+        <!-- 1. REQUIREMENT TABLES (8 METRICS + LOCATION) -->
         <section class="space-y-6 no-print">
             <h2 class="text-xl font-black border-l-4 border-emerald-500 pl-4 uppercase" id="txtStep1">1. Mandatory Seasonal Statistics</h2>
             
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <!-- TEAM A (ALPHA) -->
+                <!-- TEAM A -->
                 <div class="glass-panel overflow-hidden border-b-4 border-blue-500">
                     <div class="bg-blue-600/20 p-4"><input type="text" id="nameA" value="Team Alpha" oninput="updateMappingOptions()" class="bg-transparent font-black text-blue-400 uppercase outline-none text-xl w-full"></div>
                     <table class="w-full text-sm">
@@ -67,9 +78,9 @@
                 <div class="glass-panel p-6 space-y-4">
                     <label class="text-[10px] font-black uppercase text-emerald-500" id="lblMap1">Which team is on the LEFT in this video?</label>
                     <select id="mapV1" class="select-cell"></select>
-                    <div onclick="document.getElementById('file1').click()" class="aspect-video bg-black flex items-center justify-center cursor-pointer rounded-xl border border-white/5 overflow-hidden">
+                    <div onclick="document.getElementById('file1').click()" class="aspect-video video-box flex items-center justify-center cursor-pointer border border-white/5">
                         <video id="vPrev1" class="hidden w-full h-full object-cover"></video>
-                        <span id="vPrompt1" class="text-xs text-slate-500 font-bold uppercase">Upload Video #1</span>
+                        <span id="vPrompt1" class="text-xs text-slate-500 font-bold uppercase">Upload Match Recording #1</span>
                     </div>
                     <input type="file" id="file1" class="hidden" accept="video/mp4" onchange="preview(event, 1)">
                 </div>
@@ -77,9 +88,9 @@
                 <div class="glass-panel p-6 space-y-4">
                     <label class="text-[10px] font-black uppercase text-emerald-500" id="lblMap2">Which team is on the LEFT in this video?</label>
                     <select id="mapV2" class="select-cell"></select>
-                    <div onclick="document.getElementById('file2').click()" class="aspect-video bg-black flex items-center justify-center cursor-pointer rounded-xl border border-white/5 overflow-hidden">
+                    <div onclick="document.getElementById('file2').click()" class="aspect-video video-box flex items-center justify-center cursor-pointer border border-white/5">
                         <video id="vPrev2" class="hidden w-full h-full object-cover"></video>
-                        <span id="vPrompt2" class="text-xs text-slate-500 font-bold uppercase">Upload Video #2</span>
+                        <span id="vPrompt2" class="text-xs text-slate-500 font-bold uppercase">Upload Match Recording #2</span>
                     </div>
                     <input type="file" id="file2" class="hidden" accept="video/mp4" onchange="preview(event, 2)">
                 </div>
@@ -87,33 +98,33 @@
         </section>
 
         <div class="text-center py-6 no-print">
-            <button onclick="processAI()" class="bg-emerald-600 px-16 py-6 rounded-2xl font-black text-2xl hover:bg-emerald-500 shadow-xl" id="btnRun">RUN AI ANALYSES</button>
+            <button onclick="processAI()" class="bg-emerald-600 px-16 py-6 rounded-2xl font-black text-2xl hover:bg-emerald-500 shadow-xl transition-all active:scale-95" id="btnRun">RUN AI ANALYSES</button>
         </div>
 
-        <!-- RESULTS -->
+        <!-- RESULTS SECTION -->
         <section id="results" class="hidden space-y-6 pb-20">
             <div class="glass-panel p-10 border-t-8 border-emerald-500 text-center">
                 <h2 class="text-xs font-black text-slate-500 uppercase tracking-widest mb-8" id="resTitle">Tactical Win Probability</h2>
                 <div class="flex flex-col lg:flex-row justify-around items-center gap-10">
                     <div class="flex-1">
                         <div id="resNameA" class="text-2xl font-black text-blue-400 uppercase">---</div>
-                        <div id="resLocA" class="text-[10px] text-slate-500 font-bold uppercase">---</div>
-                        <div id="resProbA" class="text-8xl font-black">0%</div>
+                        <div id="resLocA" class="text-[10px] text-slate-500 font-bold uppercase mb-2">---</div>
+                        <div id="resProbA" class="text-8xl font-black text-white">0%</div>
                     </div>
-                    <div class="w-full max-w-md h-6 bg-slate-900 rounded-full flex overflow-hidden border border-white/10">
+                    <div class="w-full max-w-md h-6 bg-slate-900 rounded-full flex overflow-hidden border border-white/10 shadow-inner">
                         <div id="barA" class="bg-blue-600 h-full transition-all duration-1000"></div>
                         <div id="barB" class="bg-red-600 h-full transition-all duration-1000"></div>
                     </div>
                     <div class="flex-1">
                         <div id="resNameB" class="text-2xl font-black text-red-400 uppercase">---</div>
-                        <div id="resLocB" class="text-[10px] text-slate-500 font-bold uppercase">---</div>
-                        <div id="resProbB" class="text-8xl font-black">0%</div>
+                        <div id="resLocB" class="text-[10px] text-slate-500 font-bold uppercase mb-2">---</div>
+                        <div id="resProbB" class="text-8xl font-black text-white">0%</div>
                     </div>
                 </div>
                 <div id="aiLogic" class="mt-10 p-6 bg-white/5 rounded-2xl text-slate-300 italic text-sm border-l-4 border-emerald-500 text-left"></div>
                 
                 <div class="mt-8 no-print">
-                    <button onclick="saveAnalysis()" class="bg-blue-600 px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-500" id="btnSave">💾 SAVE ANALYSIS REPORT</button>
+                    <button onclick="saveAnalysis()" class="bg-blue-600 px-8 py-3 rounded-xl font-black text-sm hover:bg-blue-500">💾 SAVE ANALYSIS REPORT</button>
                 </div>
             </div>
         </section>
@@ -128,12 +139,9 @@
                 step1: "1. Mandatory Seasonal Statistics",
                 step2: "2. Last Match Video Mapping",
                 req: "Requirement", val: "Value",
-                fields: ["Games Played (GP)", "Points Made (PTS)", "Winning Games (W)", "Tie Games (D)", "Lost Games (L)", "Goals Made (GF)", "Goals Against (GA)", "Goal Variance (GD)", "Match Location"],
+                fields: ["Games Played (GP)", "Points Made (PTS)", "Winning Games (W)", "Tie Games (D)", "Lost Games (L)", "Goals Made (GF)", "Goals Against (GA)", "Goal Variance (GD)", "Game Location"],
                 locationOpts: ["Home", "Guest", "Neutral"],
-                save: "💾 SAVE ANALYSIS REPORT",
-                run: "RUN AI ANALYSES",
-                resT: "Tactical Win Probability",
-                lang: "العربية"
+                run: "RUN AI ANALYSES", resT: "Tactical Win Probability", lang: "العربية"
             },
             ar: {
                 banner: "⚠️ الفريق 'ألفا' هو الفريق الذي يظهر على يسار شاشة الفيديو دائماً.",
@@ -142,12 +150,9 @@
                 step1: "1. الإحصائيات الموسمية الإلزامية",
                 step2: "2. ربط فيديو آخر مباراة مسجلة",
                 req: "المعيار المطلوب", val: "القيمة",
-                fields: ["المباريات الملعبة (GP)", "النقاط (PTS)", "فوز (W)", "تعادل (D)", "خسارة (L)", "أهداف له (GF)", "أهداف عليه (GA)", "فارق الأهداف (GD)", "موقع المباراة"],
-                locationOpts: ["داخل الأرض", "خارج الأرض", "أرض محايدة"],
-                save: "💾 حفظ تقرير التحليل",
-                run: "بدء التحليل الذكي",
-                resT: "احتمالية الفوز التكتيكية",
-                lang: "English"
+                fields: ["المباريات (GP)", "النقاط (PTS)", "فوز (W)", "تعادل (D)", "خسارة (L)", "أهداف له (GF)", "أهداف عليه (GA)", "فارق الأهداف (GD)", "موقع المباراة"],
+                locationOpts: ["داخل الأرض (Home)", "خارج الأرض (Guest)", "أرض محايدة (Neutral)"],
+                run: "بدء التحليل الذكي", resT: "احتمالية الفوز التكتيكية", lang: "English"
             }
         };
 
@@ -157,8 +162,8 @@
         function toggleLanguage() {
             currentLang = currentLang === 'en' ? 'ar' : 'en';
             document.getElementById('mainHtml').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            renderTables();
             renderStaticText();
+            renderTables();
         }
 
         function renderStaticText() {
@@ -172,7 +177,6 @@
             document.getElementById('thReqA').innerText = l.req; document.getElementById('thValA').innerText = l.val;
             document.getElementById('thReqB').innerText = l.req; document.getElementById('thValB').innerText = l.val;
             document.getElementById('btnRun').innerText = l.run;
-            document.getElementById('btnSave').innerText = l.save;
             document.getElementById('resTitle').innerText = l.resT;
         }
 
@@ -181,7 +185,7 @@
             const generateHTML = (team) => fieldKeys.map((key, i) => {
                 if(key === 'loc') {
                     return `<tr class="border-b border-white/5">
-                        <td class="p-3 table-text text-white">${l.fields[i]}</td>
+                        <td class="p-3 table-text">${l.fields[i]}</td>
                         <td><select id="loc${team}" class="select-cell">
                             <option value="home">${l.locationOpts[0]}</option>
                             <option value="guest">${l.locationOpts[1]}</option>
@@ -190,7 +194,7 @@
                     </tr>`;
                 }
                 return `<tr class="border-b border-white/5">
-                    <td class="p-3 table-text text-white">${l.fields[i]}</td>
+                    <td class="p-3 table-text">${l.fields[i]}</td>
                     <td><input type="number" id="${key}${team}" class="input-cell ${key==='var'?'text-emerald-400':''}" value="0" ${key==='var'?'readonly':''}></td>
                 </tr>`;
             }).join('');
@@ -198,9 +202,11 @@
             document.getElementById('tableBodyA').innerHTML = generateHTML('A');
             document.getElementById('tableBodyB').innerHTML = generateHTML('B');
             
+            // Add GD calculation listeners
             ['A', 'B'].forEach(t => {
                 ['gf', 'ga'].forEach(f => {
-                    document.getElementById(`${f}${t}`).addEventListener('input', () => {
+                    const el = document.getElementById(`${f}${t}`);
+                    if(el) el.addEventListener('input', () => {
                         const gf = parseInt(document.getElementById(`gf${t}`).value) || 0;
                         const ga = parseInt(document.getElementById(`ga${t}`).value) || 0;
                         document.getElementById(`var${t}`).value = gf - ga;
@@ -228,29 +234,26 @@
         }
 
         function processAI() {
-            const getTeam = (t) => ({
+            const getT = (t) => ({
                 name: document.getElementById(`name${t}`).value,
                 gp: parseInt(document.getElementById(`gp${t}`).value) || 1,
                 pts: parseInt(document.getElementById(`pts${t}`).value) || 0,
                 w: parseInt(document.getElementById(`w${t}`).value) || 0,
-                d: parseInt(document.getElementById(`d${t}`).value) || 0,
-                l: parseInt(document.getElementById(`l${t}`).value) || 0,
                 gf: parseInt(document.getElementById(`gf${t}`).value) || 0,
                 ga: parseInt(document.getElementById(`ga${t}`).value) || 0,
                 gd: parseInt(document.getElementById(`var${t}`).value) || 0,
                 loc: document.getElementById(`loc${t}`).value
             });
 
-            const a = getTeam('A'); const b = getTeam('B');
+            const a = getT('A'); const b = getT('B');
+            const getMult = (loc) => loc === 'home' ? 1.15 : loc === 'guest' ? 0.90 : 1.0;
 
-            const getMultiplier = (loc) => (loc === 'home' ? 1.15 : loc === 'guest' ? 0.90 : 1.0);
-
-            const score = (t) => {
+            const calc = (t) => {
                 const base = (t.pts/t.gp * 40) + (t.w/t.gp * 20) + (t.gd/t.gp * 40);
-                return base * getMultiplier(t.loc);
+                return base * getMult(t.loc);
             };
 
-            const sA = score(a); const sB = score(b);
+            const sA = calc(a); const sB = calc(b);
             const pA = (sA / (sA + sB) * 100).toFixed(1);
             const pB = (100 - pA).toFixed(1);
 
@@ -265,44 +268,29 @@
             document.getElementById('barB').style.width = pB + "%";
 
             const logic = currentLang === 'en' 
-                ? `Location Factor: ${a.name} (${a.loc}) vs ${b.name} (${b.loc}). Multipliers applied: ${getMultiplier(a.loc)}x and ${getMultiplier(b.loc)}x. ${a.name} Strength: ${sA.toFixed(1)}, ${b.name} Strength: ${sB.toFixed(1)}.`
-                : `عامل الأرض: ${a.name} (${a.loc}) ضد ${b.name} (${b.loc}). تم تطبيق مضاعف القوة: ${getMultiplier(a.loc)}x و ${getMultiplier(b.loc)}x. قوة ${a.name}: ${sA.toFixed(1)}، قوة ${b.name}: ${sB.toFixed(1)}.`;
+                ? `Inference: Location factor applied (${getMult(a.loc)}x vs ${getMult(b.loc)}x). Strategic Strength: ${a.name} [${sA.toFixed(1)}] | ${b.name} [${sB.toFixed(1)}]. Variance Trend: ${a.gd > b.gd ? a.name : b.name} is more stable.`
+                : `الاستنتاج: تم تطبيق عامل الأرض (${getMult(a.loc)}x مقابل ${getMult(b.loc)}x). القوة الاستراتيجية: ${a.name} [${sA.toFixed(1)}] | ${b.name} [${sB.toFixed(1)}]. ميل الفارق: ${a.gd > b.gd ? a.name : b.name} أكثر استقراراً.`;
             
             document.getElementById('aiLogic').innerText = logic;
             window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
         function saveAnalysis() {
-            const reportContent = document.getElementById('results').innerHTML;
-            const analystName = document.getElementById('nameA').value + " vs " + document.getElementById('nameB').value;
-            const blob = new Blob([`
-                <html>
-                <head><title>Tactical Report</title>
-                <style>
-                    body { background: #020617; color: white; font-family: sans-serif; padding: 50px; text-align: center; }
-                    .glass { border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 20px; background: rgba(15,23,42,0.9); }
-                    .text-blue-400 { color: #60a5fa; } .text-red-400 { color: #f87171; }
-                    .text-8xl { font-size: 6rem; font-weight: 900; }
-                </style>
-                </head>
-                <body>
-                    <div class="glass">
-                        <h1>AI Tactical Intelligence Report</h1>
-                        ${reportContent}
-                        <p style="margin-top:50px; font-size: 0.7rem; color: gray;">Generated by AI Tactical Hub PRO</p>
-                    </div>
-                </body>
-                </html>
-            `], { type: "text/html" });
-            
-            const link = document.createElement("a");
-            link.href = URL.createObjectURL(blob);
-            link.download = `Tactical_Report_${analystName}.html`;
-            link.click();
+            const analystName = document.getElementById('nameA').value + "_vs_" + document.getElementById('nameB').value;
+            const content = document.getElementById('results').innerHTML;
+            const blob = new Blob([`<html><body style="background:#020617;color:white;font-family:sans-serif;padding:50px;">${content}</body></html>`], {type: "text/html"});
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = `AI_Report_${analystName}.html`;
+            a.click();
         }
 
-        renderTables();
-        renderStaticText();
+        // Initialize On Load
+        window.onload = () => {
+            renderStaticText();
+            renderTables();
+            updateMappingOptions();
+        };
     </script>
 </body>
 </html>
